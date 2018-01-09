@@ -16,25 +16,25 @@ typedef unsigned char UCHAR;
 #define NETSYMBOLS "0123456789./"
 
 UINT checkip (char *tstip) {
-	UCHAR endofstring;												// last symbol in the string must be \0x
+	UCHAR endofstring;										// last symbol in the string must be \0x
 	char *ip = tstip;
-	UINT octet0, octet1, octet2, octet3;							// for ip address octets
+	UINT octet0, octet1, octet2, octet3;					// for ip address octets
 
-	if (strspn(ip, IPSYMBOLS) < strlen(ip)) return 0;			// check for valid symbols
-	if (sscanf(ip, "%3u.%3u.%3u.%3u%c", 							// fill octets, check for valid format
+	if (strspn(ip, IPSYMBOLS) < strlen(ip)) return 0;		// check for valid symbols
+	if (sscanf(ip, "%3u.%3u.%3u.%3u%c", 					// fill octets, check for valid format
 			&octet0, &octet1, &octet2, &octet3, &endofstring) != 4) return 0;
-	if ((octet0 | octet1 | octet2 | octet3) > 255) return 0;		//check for
+	if ((octet0 | octet1 | octet2 | octet3) > 255) return 0;	//check for values
 	return 1;
 }
 
 UINT checknet (char *tstip) {
-	UCHAR endofstring;												// last symbol in the string must be \0x
+	UCHAR endofstring;										// last symbol in the string must be \0x
 	char *ip = tstip;
 	UINT octet0, octet1, octet2, octet3, mask;
-	if (strspn(ip, NETSYMBOLS) < strlen(ip)) return 0;			// check for valid symbols
-	if (sscanf(ip, "%3u.%3u.%3u.%3u/%2u%c", 						// fill octets, check for valid format
+	if (strspn(ip, NETSYMBOLS) < strlen(ip)) return 0;		// check for valid symbols
+	if (sscanf(ip, "%3u.%3u.%3u.%3u/%2u%c", 				// fill octets, check for valid format
 			&octet0, &octet1, &octet2, &octet3, &mask, &endofstring) != 5) return 0;
-	if (((octet0 | octet1 | octet2 | octet3) > 255) || mask > 32) return 0;		//check for
+	if (((octet0 | octet1 | octet2 | octet3) > 255) || mask > 32) return 0;		//check for values
 	return 1;
 }
 
